@@ -1,5 +1,7 @@
 package com.revature.project0;
 
+import java.util.Scanner;
+
 import com.revature.beans.*;
 import com.revature.commands.*;
 
@@ -10,6 +12,12 @@ public class Game {
 	private Level myLevel;
 	private Boolean exit = false;
 	
+	Game() {
+		parser = new Parser();
+		myLevel = new Level("Greek");
+		currRoom = myLevel.getStartRoom();
+	}
+	
 	
 	public void start() {
 		System.out.println("Welcome to a maze game. Navigate it using commands.\nType \"help\" for the commands.");
@@ -18,11 +26,7 @@ public class Game {
 		}
 	}
 	
-	Game() {
-		parser = new Parser();
-		myLevel = new Level("Greek");
-		currRoom = myLevel.getStartRoom();
-	}
+	
 	
 	public boolean runGame() {
 		boolean getCommand = true;
