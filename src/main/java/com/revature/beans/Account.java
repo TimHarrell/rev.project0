@@ -5,9 +5,18 @@ import java.util.Scanner;
 public class Account {
 	String firstName;
 	String lastName;
-	String playerId;
+	String userId;
 	private transient String password;
 	
+	public Account() {
+		super();
+	}
+	public Account(String userId, String firstName, String lastName, String password) {
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+	}
 	public void accountManagement() {
 		Scanner in = new Scanner(System.in);
 		String input;
@@ -36,6 +45,11 @@ public class Account {
 		
 	}
 	
+	public String toString() {
+		StringBuffer out = new StringBuffer();
+		out.append(userId + " " + firstName + " " + lastName + " " + password);
+		return out.toString();
+	}
 	public void hasAccount() {
 		
 	}

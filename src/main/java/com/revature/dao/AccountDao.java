@@ -12,24 +12,25 @@ import com.revature.beans.Account;
 import com.revature.util.ConnectionUtil;
 
 public class AccountDao {
-	public List<Account> getAllAccount() {
+	public List<Account> getAllAccounts() {
 		PreparedStatement ps = null;
 		Account a = null;
 		List<Account> accounts = new ArrayList<Account>();
 		
 		try(Connection conn = ConnectionUtil.getConnection()) {
+		    
 			String sql = "SELECT * FROM Accounts";
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				int id = rs.getInt("bear_id");
-				String name = rs.getString("bear_name");
-				int age = rs.getInt("bear_age");
-				int weight = rs.getInt("bear_weight");
+				String id = rs.getString("userID");
+				String firstname = rs.getString("firstname");
+				String lastname = rs.getString("lastname");
+				String password = rs.getString("passwrd");
 				
-				b = new Bear(id, name, age, weight);
-				bears.add(b);
+				a = new Account(id, firstname, lastname, password);
+				accounts.add(a);
 			}
 			
 			rs.close();
@@ -38,7 +39,7 @@ public class AccountDao {
 			ex.printStackTrace();
 		}
 		
-		return bears;
+		return accounts;
 	}
 	
 	public Bear getBear(int id) {
