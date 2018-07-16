@@ -1,7 +1,7 @@
 package com.revature.project0;
 
 import com.revature.dao.*;
-
+import java.lang.*;
 import java.util.List;
 
 import com.revature.beans.*;
@@ -9,6 +9,9 @@ public class App
 {
     public static void main( String[] args )
     {
+    	TimeCounter counter = new TimeCounter();
+    	
+    	
     	AccountDao accountDao  = new AccountDao();
     	List<Account> accounts = accountDao.getAllAccounts();
     	
@@ -20,7 +23,9 @@ public class App
     	newAcc.accountManagement();
     	Game newGame = new Game();
     	
-    	newGame.start();
+    	
+    	newGame.run();
+    	
         System.out.println("Thanks for playing!");
     }
 }

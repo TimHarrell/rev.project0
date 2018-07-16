@@ -1,0 +1,30 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "project0",
+                "projectName": "project0",
+                "workingDirectory": "c:\\Users\\timot\\Documents\\Revature\\project0",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "project0",
+                "projectName": "project0",
+                "workingDirectory": "c:\\Users\\timot\\Documents\\Revature\\project0",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}

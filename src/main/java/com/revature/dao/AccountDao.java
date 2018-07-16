@@ -42,25 +42,25 @@ public class AccountDao {
 		return accounts;
 	}
 	
-	public Bear getBear(int id) {
+	public Account getAccount(String userID) {
 		PreparedStatement ps = null;
-		Bear b = null;
+		Account a = null;
 		ResultSet rs = null;
 		
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "SELECT * FROM BEAR WHERE BEAR_ID = ?";
+			String sql = "SELECT * FROM ACCOUNTS WHERE userID = ?";
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setString(1, userID);
 			
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				int bid = rs.getInt("bear_id");
-				String name = rs.getString("bear_name");
-				int age = rs.getInt("bear_age");
-				int weight = rs.getInt("bear_weight");
+				String id = rs.getString("userID");
+				String firstname = rs.getString("firstname");
+				String lastname = rs.getString("lastname");
+				String password = rs.getString("passwrd");
 				
-				b = new Bear(bid, name, age, weight);
+				a = new Account(id, firstname, lastname, password);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -78,7 +78,7 @@ public class AccountDao {
 			}
 		}
 		
-		return b;
+		return a;
 	}
 	
 	public void feedBear(int bid, int bhid, int hamt) {

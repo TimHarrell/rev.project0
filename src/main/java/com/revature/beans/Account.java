@@ -41,10 +41,20 @@ public class Account {
 			}
 		}
 		
-		in.close();
+		//in.close(); // crashes input later on
 		
 	}
 	
+	// overloading equals method
+	
+	public boolean equals(Account a) {
+		if(!this.userId.equals(a.getUserId())) return false;
+		if(!this.firstName.equals(a.getFirstName())) return false;
+		if(!this.lastName.equals(a.getLastName())) return false;
+		if(!this.password.equals(a.getPassword())) return false;
+		
+		return true;
+	}
 	public String toString() {
 		StringBuffer out = new StringBuffer();
 		out.append(userId + " " + firstName + " " + lastName + " " + password);
@@ -56,6 +66,30 @@ public class Account {
 	
 	public void makeAccount() {
 		
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }

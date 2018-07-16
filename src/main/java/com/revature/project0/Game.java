@@ -5,10 +5,10 @@ import java.util.Scanner;
 import com.revature.beans.*;
 import com.revature.commands.*;
 
-public class Game {
+public class Game implements Runnable {
 	private Parser parser;
 	private Room4D currRoom;
-	private boolean endOfGame = false;
+	private static boolean endOfGame = false;
 	private Level myLevel;
 	private Boolean exit = false;
 	
@@ -18,6 +18,9 @@ public class Game {
 		currRoom = myLevel.getStartRoom();
 	}
 	
+	public void run() {
+		start();
+	}
 	
 	public void start() {
 		System.out.println("Welcome to a maze game. Navigate it using commands.\nType \"help\" for the commands.");
@@ -139,7 +142,9 @@ public class Game {
 		
 	}
 	
-	
+	public static boolean isEndOfGame() {
+		return endOfGame;
+	}
 	
 	
 }

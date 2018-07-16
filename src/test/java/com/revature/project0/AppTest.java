@@ -1,8 +1,18 @@
 package com.revature.project0;
 
-import junit.framework.Test;
+import com.revature.beans.*;
+import com.revature.dao.AccountDao;
+import com.revature.util.ConnectionUtil;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.junit.Test;
+//import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
 
 /**
  * Unit test for simple App.
@@ -11,28 +21,46 @@ public class AppTest
     extends TestCase
 {
     /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
      * Rigourous Test :-)
+     * 
      */
-    public void testApp()
+	@Test
+    public void testgetSampleAccount()
     {
-        assertTrue( true );
+        AccountDao testDao = new AccountDao();
+        Account SamClem = new Account("MarkTwain", "Samuel", "Clemens", "TomSawyer");
+        Account onlineAcc = testDao.getAccount(SamClem.getUserId());
+        assertTrue(onlineAcc.equals(SamClem));
     }
+	
+	@Test
+	public void testConnection() {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "SELECT * FROM ACCOUNTS WHERE userID = ?"; // Arbitrary sql statement
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, "");
+			
+			rs = ps.executeQuery();
+		} catch (Exception ex) {
+			assertTrue(false); // if any exception is caught, test fails
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+				
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException ex) {
+				ex.printStackTrace(); 
+				assertTrue(false); // if an sql exception is thrown, the test fails
+			}
+		}
+		
+		assertTrue(true);
+	}
 }
