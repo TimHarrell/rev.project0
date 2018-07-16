@@ -1,9 +1,9 @@
 package com.revature.project0;
 
-import java.util.Scanner;
-
+import java.util.List;
 import com.revature.beans.*;
 import com.revature.commands.*;
+import com.revature.dao.AccountDao;
 
 public class Game implements Runnable {
 	private Parser parser;
@@ -19,10 +19,15 @@ public class Game implements Runnable {
 	}
 	
 	public void run() {
-		start();
+		try {
+			start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void start() {
+	public void start() throws Exception {
 		System.out.println("Welcome to a maze game. Navigate it using commands.\nType \"help\" for the commands.");
 		while(!exit) {
 			exit = runGame();
@@ -31,7 +36,7 @@ public class Game implements Runnable {
 	
 	
 	
-	public boolean runGame() {
+	public boolean runGame() throws Exception {
 		boolean getCommand = true;
 		if(currRoom.isLast()) {
 			endOfGame = true;
@@ -62,8 +67,7 @@ public class Game implements Runnable {
 			}
 		}
 		
-		System.out.print("while loop exited unintentionally");
-		return false;
+		throw new Exception("while loop exited unintentionally");
 	}
 	
 	public void endGame() {
@@ -78,6 +82,14 @@ public class Game implements Runnable {
 		System.out.println("\nRoom: " + currRoom.getName());
 		System.out.println(currRoom.getDescription());
 		
+	}
+	
+	public void getAllAccounts() {
+    	List<Account> accounts = AccountDao.getAllAccounts();
+    	
+    	for(int i = 0; i < accounts.size(); i++) {
+    		System.out.println(accounts.get(i).toString());
+    	}
 	}
 	
 	public Boolean processGo4D(String in) {

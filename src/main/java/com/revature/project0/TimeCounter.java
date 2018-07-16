@@ -1,5 +1,5 @@
 package com.revature.project0;
-import java.lang.*;
+
 
 public class TimeCounter implements Runnable {
 	long startTime;

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import com.revature.beans.Account;
 import com.revature.util.ConnectionUtil;
 
 public class AccountDao {
-	public List<Account> getAllAccounts() {
+	public static List<Account> getAllAccounts() {
 		PreparedStatement ps = null;
 		Account a = null;
 		List<Account> accounts = new ArrayList<Account>();
@@ -42,7 +43,7 @@ public class AccountDao {
 		return accounts;
 	}
 	
-	public Account getAccount(String userID) {
+	public static Account getAccount(String userID) {
 		PreparedStatement ps = null;
 		Account a = null;
 		ResultSet rs = null;
@@ -81,26 +82,35 @@ public class AccountDao {
 		return a;
 	}
 	
-	public void feedBear(int bid, int bhid, int hamt) {
+	public static boolean addAccount(String userId, String firstname, String lastname, String password) {
 		CallableStatement cs = null;
-		
+		boolean success = false;
 		try(Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "{CALL SP_FEED_BEAR(?, ?, ?)}";
+			String sql = "INSERT INTO ACCOUNTS (userID, firstname, lastname, passwrd) VALUES (?, ?, ?, ?)";
 			cs = conn.prepareCall(sql);
-			cs.setInt(1, bid);
-			cs.setInt(2, bhid);
-			cs.setInt(3, hamt);
+			cs.setString(1, userId);
+			cs.setString(2, firstname);
+			cs.setString(3, lastname);
+			cs.setString(4, password);
 			
 			Boolean result = cs.execute();
 			if (!result) {
-				System.out.println("Fed Bear");
+				System.out.println("Successful account submission.");
+				success = true;
 			} else {
 				System.out.println("Failed");
+				success = false;
 			}
 			
 			cs.close();
+		} catch(SQLIntegrityConstraintViolationException ex) {
+			System.out.println("that username already exists");
+			success = false;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			success = false;
 		}
+		
+		return success;
 	}
 }

@@ -27,9 +27,9 @@ public class AppTest
 	@Test
     public void testgetSampleAccount()
     {
-        AccountDao testDao = new AccountDao();
+        
         Account SamClem = new Account("MarkTwain", "Samuel", "Clemens", "TomSawyer");
-        Account onlineAcc = testDao.getAccount(SamClem.getUserId());
+        Account onlineAcc = AccountDao.getAccount(SamClem.getUserId());
         assertTrue(onlineAcc.equals(SamClem));
     }
 	
@@ -63,4 +63,5 @@ public class AppTest
 		
 		assertTrue(true);
 	}
+	
 }
