@@ -1,6 +1,8 @@
 package com.revature.beans;
 
+import java.awt.List;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.revature.dao.AccountDao;
@@ -19,6 +21,13 @@ public class Account implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
+	}
+	
+	
+	public synchronized static void printAccounts(ArrayList<Account> a) {
+		for(Account acc : a) {
+			System.out.println(acc.toString());
+		}
 	}
 	
 	/**

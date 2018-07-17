@@ -1,5 +1,6 @@
 package com.revature.project0;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.revature.beans.*;
 import com.revature.commands.*;
@@ -106,11 +107,32 @@ public class Game {
 	 * retrieves and prints all accounts from the ACCOUNTS table
 	 */
 	public static void getAllAccounts() {
-    	List<Account> accounts = AccountDao.getAllAccounts();
+    	final ArrayList<Account> accounts = AccountDao.getAllAccounts();
+    	System.out.println("\nRetrieving all accounts...");
     	
-    	for(int i = 0; i < accounts.size(); i++) {
-    		System.out.println(accounts.get(i).toString());
-    	}
+    	Runnable runnable = () -> {
+    		
+    			Account.printAccounts(accounts);
+    		
+    		try {
+    			Thread.sleep(1000);
+    		} catch (InterruptedException e) {
+    			throw new IllegalStateException(e);
+    		}
+    	
+    	};
+    	
+    	Thread t1 = new Thread(runnable);
+    	Thread t2 = new Thread(runnable);
+    	t1.start();
+    	t2.start();
+    	
+    	try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException ex) {
+            ex.getMessage();
+        }
 	}
 	
 	/**

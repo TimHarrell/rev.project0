@@ -20,7 +20,7 @@ public class App
     	
         System.out.println("Thanks for playing!");
         
-        Game.getAllAccounts();
+       //Game.getAllAccounts();
         
         
         Serial<Account> serder = new Serial<>();

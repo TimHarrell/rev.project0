@@ -20,14 +20,16 @@ import junit.framework.TestCase;
 public class AppTest 
     extends TestCase
 {
-    /**
-     * Rigourous Test :-)
-     * 
-     */
+    
+	@Test
+	public void testgetAllAccounts() {
+		Game.getAllAccounts();
+	}
+	
 	@Test
     public void testgetSampleAccount()
     {
-        
+        System.out.println("testing sample account acquisition");
         Account SamClem = new Account("MarkTwain", "Samuel", "Clemens", "TomSawyer");
         Account onlineAcc = AccountDao.getAccount(SamClem.getUserId());
         assertTrue(onlineAcc.equals(SamClem));
@@ -35,7 +37,7 @@ public class AppTest
 	
 	@Test
 	public void testConnection() {
-		
+		System.out.println("testing connection");
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			
 		} catch (Exception ex) {
@@ -47,6 +49,7 @@ public class AppTest
 	
 	@Test 
 	public void testPerfectPlay() {
+		System.out.println("Testing perfect finish");
 		Level newLevel = new Level("Greek");
 		
 		Room currRoom = newLevel.getStartRoom();
@@ -62,6 +65,7 @@ public class AppTest
 	
 	@Test
 	public void testFlawedFinish() {
+		System.out.println("Testing flawed finish...");
 		Level newLevel = new Level("Greek");
 		
 		Room currRoom = newLevel.getStartRoom();
@@ -79,6 +83,7 @@ public class AppTest
 	
 	@Test 
 	public void testSerDes() {
+		System.out.println("Testing serialization...");
 		Account acc = new Account("Batman", "Bruce", "Wayne", "IamTheBatMan");
 		Serial<Account> serdes = new Serial<>();
 		System.out.println("Expected Print: ");
@@ -89,5 +94,7 @@ public class AppTest
 		
 		assertTrue(true);
 	}
+	
+	
 	
 }

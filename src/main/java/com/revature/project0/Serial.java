@@ -11,13 +11,14 @@ import com.revature.beans.Account;
 public class Serial<G> {
 
 	public void SerDesObject(G o) {
+		
 		try {
 	         FileOutputStream fileOut = new FileOutputStream("account.txt");
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
 	         out.writeObject(o);
 	         out.close();
 	         fileOut.close();
-	         System.out.printf("\nSerialized object is saved in account.txt");
+	         System.out.printf("\nSerialized Account is saved in account.txt");
 	      } catch (IOException i) {
 	         i.printStackTrace();
 	      }
@@ -38,7 +39,7 @@ public class Serial<G> {
 	      }
 	      
 	      System.out.println("\nDeserialized Account:");
-	      System.out.println(((Account)o).toString());
+	      System.out.println(o.toString());
 	   }
 	
 }

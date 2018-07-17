@@ -17,11 +17,11 @@ public class AccountDao {
 	/**
 	 * retrieves all of the accounts from the ACCOUNT table
 	 */
-	public static List<Account> getAllAccounts() {
+	public static ArrayList<Account> getAllAccounts() {
 		System.out.println("connecting...");
 		PreparedStatement ps = null;
 		Account a = null;
-		List<Account> accounts = new ArrayList<Account>();
+		ArrayList<Account> accounts = new ArrayList<Account>();
 		
 		try(Connection conn = ConnectionUtil.getConnection()) {
 		    
