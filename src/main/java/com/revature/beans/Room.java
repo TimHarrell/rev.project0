@@ -3,8 +3,7 @@ package com.revature.beans;
 public abstract class Room { // abstract because children should be made, not this
 	protected String name;
 	protected String description;
-	protected Room left;
-	protected Room right;
+	protected Room foward;
 	protected Room back;
 	protected boolean last = false;
 	Room() {
@@ -17,6 +16,8 @@ public abstract class Room { // abstract because children should be made, not th
 		description = desc;
 	}
 
+	public abstract boolean isDeadEnd();
+	
 	public String getName() {
 		return name;
 	}
@@ -29,24 +30,13 @@ public abstract class Room { // abstract because children should be made, not th
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public Room getLeft() {
-		return left;
+	public void setFoward(Room room) {
+		foward = room;
+		foward.setBack(this);
 	}
 
-	public void setLeft(Room left) {
-		this.left = left;
-		left.setBack(this);
-	}
-
-	public Room getRight() {
-		
-		return right;
-	}
-
-	public void setRight(Room right) {
-		this.right = right;
-		right.setBack(this);
+	public Room getFoward() {
+		return foward;
 	}
 	
 	public void setAslast() {
@@ -64,6 +54,21 @@ public abstract class Room { // abstract because children should be made, not th
 	public void setBack(Room back) {
 		this.back = back;
 	}
+	
+	/* these getters always return null, they are just here to 
+	 * improve functional compatibility with the command words
+	*/
+	public Room getLeft() {
+		return null;
+	}
+	
+	public Room getRight() {
+		return null;
+	}
+	
+	
+	
+	
 	
 	
 	

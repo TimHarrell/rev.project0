@@ -35,8 +35,6 @@ public class AppTest
 	
 	@Test
 	public void testConnection() {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
 		
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			
@@ -44,6 +42,51 @@ public class AppTest
 			assertTrue(false); // if any exception is caught, test fails
 		} 
 		System.out.print("connected");
+		assertTrue(true);
+	}
+	
+	@Test 
+	public void testPerfectPlay() {
+		Level newLevel = new Level("Greek");
+		
+		Room currRoom = newLevel.getStartRoom();
+		
+		currRoom = currRoom.getFoward();
+		currRoom = currRoom.getRight();
+		currRoom = currRoom.getFoward();
+		currRoom = currRoom.getLeft();
+		
+		assertTrue(currRoom.isLast());
+		
+	}
+	
+	@Test
+	public void testFlawedFinish() {
+		Level newLevel = new Level("Greek");
+		
+		Room currRoom = newLevel.getStartRoom();
+		
+		currRoom = currRoom.getFoward();
+		currRoom = currRoom.getRight();
+		currRoom = currRoom.getFoward();
+		currRoom = currRoom.getFoward();
+		currRoom = currRoom.getBack();
+		currRoom = currRoom.getLeft();
+		
+		assertTrue(currRoom.isLast());
+		
+	}
+	
+	@Test 
+	public void testSerDes() {
+		Account acc = new Account("Batman", "Bruce", "Wayne", "IamTheBatMan");
+		Serial<Account> serdes = new Serial<>();
+		System.out.println("Expected Print: ");
+		System.out.println(acc.toString());
+		serdes.SerDesObject(acc);
+		
+		System.out.println("NOTE: password should be null when deserilizing since it is transient.");
+		
 		assertTrue(true);
 	}
 	

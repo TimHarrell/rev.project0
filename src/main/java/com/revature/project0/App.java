@@ -5,18 +5,25 @@ public class App
 {
     public static void main( String[] args )
     {
-    	TimeCounter counter = new TimeCounter();
     	
+    	Game newGame = new Game();
+    	 
     	
     	Account newAcc = new Account();
     	newAcc.accountManagement();
-    	Game newGame = new Game();
     	
     	
-    	newGame.run();
+    	
+    	
+    	newGame.start();
+    	
     	
         System.out.println("Thanks for playing!");
         
-        newGame.getAllAccounts();
+        Game.getAllAccounts();
+        
+        
+        Serial<Account> serder = new Serial<>();
+        serder.SerDesObject(newAcc);
     }
 }

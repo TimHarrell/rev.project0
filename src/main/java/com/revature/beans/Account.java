@@ -1,10 +1,11 @@
 package com.revature.beans;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 import com.revature.dao.AccountDao;
 
-public class Account {
+public class Account implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String userId;
@@ -24,6 +25,7 @@ public class Account {
 	 * prompts user asking if they already have an account and handles option accordingly
 	 */
 	public void accountManagement() {
+		clearInfo();
 		Scanner in = new Scanner(System.in);
 		String input;
 		boolean stay = true;
@@ -35,6 +37,7 @@ public class Account {
 			input = in.nextLine();
 			if(input.equals("Y")) {
 				stay = addAccount();
+				
 			}
 			else if(input.equals("N")) {
 				stay = !hasAccount();
@@ -83,8 +86,11 @@ public class Account {
 		String[] accountInfo;
 
 		accountInfo = getAccountInfo();
-		
-		return !AccountDao.addAccount(accountInfo[0], accountInfo[1], accountInfo[2], accountInfo[3]);
+		setUserId(accountInfo[0]);
+		setFirstName(accountInfo[1]);
+		setLastName(accountInfo[2]);
+		setPassword(accountInfo[3]);
+		return !AccountDao.addAccount(userId, firstName, lastName, password);
 	}
 	
 	/**
@@ -94,6 +100,10 @@ public class Account {
 		Account account = AccountDao.getAccount(username);
 		if(account != null && account.getPassword().equals(password)) {
 			System.out.println("Valid credentials\n");
+			setUserId(account.getUserId());
+			setFirstName(account.getFirstName());
+			setLastName(account.getLastName());
+			setPassword(account.getPassword());
 			return true;
 		}
 		
@@ -129,6 +139,13 @@ public class Account {
 		return accountInfo;
 	}
 	
+	
+	public void clearInfo() {
+		userId = null;
+		firstName = null;
+		lastName = null;
+		password = null;
+	}
 	//SETTERS AND GETTERS
 	public String getFirstName() {
 		return firstName;

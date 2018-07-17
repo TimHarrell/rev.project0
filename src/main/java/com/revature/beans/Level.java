@@ -2,11 +2,12 @@ package com.revature.beans;
 
 import java.util.HashMap;
 
-public class Level<G> {
-	private Room4D startRoom;
+public class Level {
+	private Room2D startRoom;
 	private HashMap<String, Room> roomTypes = new HashMap<>(); // a hash map for storing all of the possible rooms
 	private String[] names;
 	private String[] descriptions;
+	
 	
 	public Level(String type) {
 		if(type.equals("Greek")) {
@@ -16,11 +17,16 @@ public class Level<G> {
 	}
 	
 	
-		// make a specific level
+	/**
+	 * generate a level based on the greek theme
+	 */
 	public void generateLabrynth() {
-		startRoom = new Room4D("Start Room", "Welcome to the labrynth. Move foward to start.");
+		
 		setThemeAsGreek();
-		generateRoomsHashMap();
+		//generateRoomsHashMap();
+		
+		startRoom = new Room2D("Start Room", "Welcome to the labrynth. Move foward to start.");
+		
 		Room4D room1 = new Room4D(names[0], descriptions[0]);
 		Room4D room10 = new Room4D(names[3], descriptions[3]);
 		Room4D room101 = new Room4D(names[2], descriptions[2]);
@@ -48,7 +54,11 @@ public class Level<G> {
 		
 		
 	}
-	// setting theme
+
+/**
+ * sets the current theme as greek by defining the names and 
+ * descriptions String array with greek related stuff
+ */
 	public void setThemeAsGreek() {
 		
 		names = RoomsTheme.getGreekNames();
@@ -56,14 +66,18 @@ public class Level<G> {
 		
 	}
 	
-	// populate hashmap with rooms of theme
-	public void generateRoomsHashMap() {
+	/**
+	 * makes a hash map based on one of themes
+	 * a generate theme function must be called first
+	 */
+	public void generateRoomsHashMap() { // not currently used in the program
 		for(int i = 0; i < names.length; i++ ) {
 			roomTypes.put(names[i], new  Room4D(names[i], descriptions[i]));
 		}
 	}
 	
-	public Room4D getStartRoom() {
+	
+	public Room getStartRoom() {
 		return startRoom;
 	}
 	

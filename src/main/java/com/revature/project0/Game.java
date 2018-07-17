@@ -5,9 +5,9 @@ import com.revature.beans.*;
 import com.revature.commands.*;
 import com.revature.dao.AccountDao;
 
-public class Game implements Runnable {
+public class Game {
 	private Parser parser;
-	private Room4D currRoom;
+	private Room currRoom;
 	private static boolean endOfGame = false;
 	private Level myLevel;
 	private Boolean exit = false;
@@ -18,23 +18,18 @@ public class Game implements Runnable {
 		currRoom = myLevel.getStartRoom();
 	}
 	
-	public void run() {
-		try {
-			start();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	/**
 	 * main game loop
 	 * @throws Exception
 	 */
-	public void start() throws Exception {
+	public void start() {
 		System.out.println("\nWelcome to a maze game. Navigate it using commands.\nType \"help\" for the commands.");
 		while(!exit) {
-			exit = runGame();
+			try {
+				exit = runGame();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -110,7 +105,7 @@ public class Game implements Runnable {
 	/**
 	 * retrieves and prints all accounts from the ACCOUNTS table
 	 */
-	public void getAllAccounts() {
+	public static void getAllAccounts() {
     	List<Account> accounts = AccountDao.getAllAccounts();
     	
     	for(int i = 0; i < accounts.size(); i++) {
@@ -130,7 +125,7 @@ public class Game implements Runnable {
 				System.out.println("That's a fake door, try again");
 				return false;
 			}
-			currRoom = (Room4D) currRoom.getLeft();
+			currRoom = currRoom.getLeft();
 			return true;
 		}
 		else 
@@ -140,7 +135,7 @@ public class Game implements Runnable {
 				System.out.println("That's a fake door, try again");
 				return false;
 			}
-			currRoom = (Room4D) currRoom.getRight();
+			currRoom = currRoom.getRight();
 			return true;
 		}
 		else 
@@ -159,7 +154,7 @@ public class Game implements Runnable {
 				System.out.println("That's a fake door, try again");
 				return false;
 			}
-			currRoom = (Room4D) currRoom.getBack();
+			currRoom = currRoom.getBack();
 			return true;
 		}
 		else {
