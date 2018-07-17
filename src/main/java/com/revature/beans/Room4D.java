@@ -41,23 +41,31 @@ public class Room4D extends Room{ // Room with 4 direction to move
 	}
 	public void setLeft(Room left) {
 		this.left = left;
+		left.setBack(this);
 	}
 	public Room getRight() {
 		return right;
 	}
 	public void setRight(Room right) {
 		this.right = right;
+		right.setBack(this);
 	}
 	public Room getFoward() {
 		return foward;
 	}
 	public void setFoward(Room foward) {
 		this.foward = foward;
+		foward.setBack(this);
 	}
 	public Room getBack() {
 		return back;
 	}
 	public void setBack(Room back) {
 		this.back = back;
+	}
+	public boolean isDeadEnd() {
+		if(left == null && right == null && foward == null) return true;
+		
+		return false;
 	}
 }

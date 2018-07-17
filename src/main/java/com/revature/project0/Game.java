@@ -101,6 +101,9 @@ public class Game implements Runnable {
 	public void printCurrRoomInfo() {
 		System.out.println("\nRoom: " + currRoom.getName());
 		System.out.println(currRoom.getDescription());
+		if(currRoom.isDeadEnd()) {
+			System.out.println("It's a dead end, go back.");
+		}
 		
 	}
 	

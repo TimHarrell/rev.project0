@@ -5,6 +5,7 @@ public abstract class Room { // abstract because children should be made, not th
 	protected String description;
 	protected Room left;
 	protected Room right;
+	protected Room back;
 	protected boolean last = false;
 	Room() {
 		name = "default room";
@@ -35,14 +36,17 @@ public abstract class Room { // abstract because children should be made, not th
 
 	public void setLeft(Room left) {
 		this.left = left;
+		left.setBack(this);
 	}
 
 	public Room getRight() {
+		
 		return right;
 	}
 
 	public void setRight(Room right) {
 		this.right = right;
+		right.setBack(this);
 	}
 	
 	public void setAslast() {
@@ -52,6 +56,16 @@ public abstract class Room { // abstract because children should be made, not th
 	public boolean isLast() {
 		return last;
 	}
+
+	public Room getBack() {
+		return back;
+	}
+
+	public void setBack(Room back) {
+		this.back = back;
+	}
+	
+	
 	
 	
 }
