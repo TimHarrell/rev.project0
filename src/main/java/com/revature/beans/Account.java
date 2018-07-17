@@ -5,9 +5,9 @@ import java.util.Scanner;
 import com.revature.dao.AccountDao;
 
 public class Account {
-	String firstName;
-	String lastName;
-	String userId;
+	private String firstName;
+	private String lastName;
+	private String userId;
 	private transient String password;
 	
 	public Account() {
@@ -20,7 +20,7 @@ public class Account {
 		this.password = password;
 	}
 	
-	/*
+	/**
 	 * prompts user asking if they already have an account and handles option accordingly
 	 */
 	public void accountManagement() {
@@ -38,7 +38,6 @@ public class Account {
 			}
 			else if(input.equals("N")) {
 				stay = !hasAccount();
-				System.out.println("invalid credentials");
 			}
 				
 		}
@@ -62,22 +61,22 @@ public class Account {
 		return out.toString();
 	}
 	
-	/*
+	/**
 	 * grabs inputted information from user and verifies if the password matches
 	 */
 	public boolean hasAccount() {
 		Scanner scanner = new Scanner(System.in);
 		String username;
 		String password;
-		System.out.print("Enter your username: ");
+		System.out.print("Enter your username\n>");
 		username = scanner.nextLine();
-		System.out.print("Enter your password: ");
+		System.out.print("Enter your password\n>");
 		password = scanner.nextLine();
 		
 		return verifyAccount(username, password);
 	}
 	
-	/*
+	/**
 	 * add an account to the ACCOUNTS table, assuming the inputted user name does not already exist
 	 */
 	public boolean addAccount() {
@@ -88,17 +87,22 @@ public class Account {
 		return !AccountDao.addAccount(accountInfo[0], accountInfo[1], accountInfo[2], accountInfo[3]);
 	}
 	
-	/*
+	/**
 	 * if the corresponding account has the same password as the user password input, return true, otherwise return false
 	 */
 	public boolean verifyAccount(String username, String password) {
 		Account account = AccountDao.getAccount(username);
-		if(account.getPassword().equals(password)) return true;
+		if(account != null && account.getPassword().equals(password)) {
+			System.out.println("Valid credentials\n");
+			return true;
+		}
+		
+		System.out.println("Invalid credentials\n");
 		return false;
 		
 	}
 	
-	/*
+	/**
 	 * prompt user for new account information
 	 */
 	public String[] getAccountInfo() {
@@ -110,16 +114,16 @@ public class Account {
 
 		Scanner input = new Scanner(System.in);
 		
-		System.out.print("Enter new user name:");
+		System.out.print("Enter new user name\n>");
 		accountInfo[0] = input.nextLine();
 		
-		System.out.print("Enter new firstname:");
+		System.out.print("Enter new firstname\n>");
 		accountInfo[1] = input.nextLine();
 		
-		System.out.print("Enter new lastname:");
+		System.out.print("Enter new lastname\n>");
 		accountInfo[2] = input.nextLine();
 		
-		System.out.print("Enter new password:");
+		System.out.print("Enter new password\n>");
 		accountInfo[3] = input.nextLine();
 		
 		return accountInfo;

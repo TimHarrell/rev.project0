@@ -7,7 +7,7 @@ CREATE TABLE ACCOUNTS (
 );
 
 
-INSERT INTO ACCOUNTS (userID, firstname, lastname, passwrd) VALUES ('theDude', 'Samuel', 'Clemens', 'TomSawyer');
+INSERT INTO ACCOUNTS (userID, firstname, lastname, passwrd) VALUES ('MarkTwain', 'Samuel', 'Clemens', 'TomSawyer');
 SELECT * FROM ACCOUNTS;
 
 COMMIT;

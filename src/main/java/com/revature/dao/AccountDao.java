@@ -13,7 +13,12 @@ import com.revature.beans.Account;
 import com.revature.util.ConnectionUtil;
 
 public class AccountDao {
+	
+	/**
+	 * retrieves all of the accounts from the ACCOUNT table
+	 */
 	public static List<Account> getAllAccounts() {
+		System.out.println("connecting...");
 		PreparedStatement ps = null;
 		Account a = null;
 		List<Account> accounts = new ArrayList<Account>();
@@ -43,11 +48,16 @@ public class AccountDao {
 		return accounts;
 	}
 	
+	/**
+	 * retrieves an account from the ACCOUNTS table based on the user ID
+	 * @param userID
+	 * @return
+	 */
 	public static Account getAccount(String userID) {
 		PreparedStatement ps = null;
 		Account a = null;
 		ResultSet rs = null;
-		
+		System.out.println("connecting...");
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String sql = "SELECT * FROM ACCOUNTS WHERE userID = ?";
 			ps = conn.prepareStatement(sql);
@@ -82,9 +92,13 @@ public class AccountDao {
 		return a;
 	}
 	
+	/**
+	 * submits a new account to the ACCOUNTS table
+	 */
 	public static boolean addAccount(String userId, String firstname, String lastname, String password) {
 		CallableStatement cs = null;
 		boolean success = false;
+		System.out.println("connecting...");
 		try(Connection conn = ConnectionUtil.getConnection()) {
 			String sql = "INSERT INTO ACCOUNTS (userID, firstname, lastname, passwrd) VALUES (?, ?, ?, ?)";
 			cs = conn.prepareCall(sql);
@@ -104,7 +118,7 @@ public class AccountDao {
 			
 			cs.close();
 		} catch(SQLIntegrityConstraintViolationException ex) {
-			System.out.println("that username already exists");
+			System.out.println("That username already exists.");
 			success = false;
 		} catch (Exception ex) {
 			ex.printStackTrace();

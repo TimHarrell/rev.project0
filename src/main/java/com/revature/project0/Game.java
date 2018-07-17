@@ -27,15 +27,23 @@ public class Game implements Runnable {
 		}
 	}
 	
+	/**
+	 * main game loop
+	 * @throws Exception
+	 */
 	public void start() throws Exception {
-		System.out.println("Welcome to a maze game. Navigate it using commands.\nType \"help\" for the commands.");
+		System.out.println("\nWelcome to a maze game. Navigate it using commands.\nType \"help\" for the commands.");
 		while(!exit) {
 			exit = runGame();
 		}
 	}
 	
 	
-	
+	/**
+	 * Runs the main game. It has a loop the controls whether or not the player has finished or not 
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean runGame() throws Exception {
 		boolean getCommand = true;
 		if(currRoom.isLast()) {
@@ -70,20 +78,35 @@ public class Game implements Runnable {
 		throw new Exception("while loop exited unintentionally");
 	}
 	
+	/**
+	 * Effectively ends the game by changing the endOfGame boolean to true
+	 */
 	public void endGame() {
 		endOfGame = true;
 	}
 	
+	/**
+	 * process the second word of a go command, depends on the type of rooms
+	 * NOTE: current implementation only uses 4D rooms, so this seems like an unnecessary function, however if different types of
+	 * rooms were eventually added, this would handle which process to execute
+	 * @param in
+	 */
 	public void processGo(String in) {
 		processGo4D(in);
 	}
 	
+	/**
+	 * provides information about the room the player is currently in
+	 */
 	public void printCurrRoomInfo() {
 		System.out.println("\nRoom: " + currRoom.getName());
 		System.out.println(currRoom.getDescription());
 		
 	}
 	
+	/**
+	 * retrieves and prints all accounts from the ACCOUNTS table
+	 */
 	public void getAllAccounts() {
     	List<Account> accounts = AccountDao.getAllAccounts();
     	
@@ -92,6 +115,11 @@ public class Game implements Runnable {
     	}
 	}
 	
+	/**
+	 * processes second word of a go command in the context of a 4D room
+	 * @param in
+	 * @return
+	 */
 	public Boolean processGo4D(String in) {
 		if(in.equals("left")) {
 			if(currRoom.getLeft() == null) {
@@ -142,18 +170,34 @@ public class Game implements Runnable {
 		}
 	};
 	
+	/**
+	 * Implement later
+	 * @param in
+	 */
 	public void processGo3D(String in) {
 		
 	}
 	
+	/**
+	 * implement later 
+	 * @param in
+	 */
 	public void processGo2D(String in) {
 		
 	}
 	
+	/**
+	 * implement later
+	 * @param in
+	 */
 	public void processGo1D(String in) {
 		
 	}
 	
+	/**
+	 * verifies if it is the end of the game. It is effectively a getter function for endOfGame boolean variable
+	 * @return
+	 */
 	public static boolean isEndOfGame() {
 		return endOfGame;
 	}

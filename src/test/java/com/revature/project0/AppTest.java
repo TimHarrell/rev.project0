@@ -39,28 +39,11 @@ public class AppTest
 		ResultSet rs = null;
 		
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String sql = "SELECT * FROM ACCOUNTS WHERE userID = ?"; // Arbitrary sql statement
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, "");
 			
-			rs = ps.executeQuery();
 		} catch (Exception ex) {
 			assertTrue(false); // if any exception is caught, test fails
-		} finally {
-			try {
-				if (ps != null) {
-					ps.close();
-				}
-				
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (SQLException ex) {
-				ex.printStackTrace(); 
-				assertTrue(false); // if an sql exception is thrown, the test fails
-			}
-		}
-		
+		} 
+		System.out.print("connected");
 		assertTrue(true);
 	}
 	
